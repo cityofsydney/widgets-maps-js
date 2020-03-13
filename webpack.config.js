@@ -46,7 +46,7 @@ module.exports = [
       path: distDir,
       publicPath: "/",
       filename: "widget-starter.js",
-      library: "mapWidgetStarter",
+      library: "JsMapWidget",
       libraryExport: "default",
       libraryTarget: "umd",
       umdNamedDefine: true
