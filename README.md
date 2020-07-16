@@ -2,6 +2,9 @@
 
 A lightweight JS script to embed maps into pages.
 
+We need to doc how we use the esri maps
+ID
+
 ## Embeddable JS Map Widgets
 
 ### Install dependencies
