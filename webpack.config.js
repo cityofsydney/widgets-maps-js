@@ -10,7 +10,7 @@ const defaultConfig = {
   mode: process.env.NODE_ENV || "development",
   devServer: {
     contentBase: publicDir,
-    port: 9000
+    port: 9000,
   },
   plugins: [new CopyPlugin([{ from: "public", to: "." }])].filter(Boolean),
   module: {
@@ -22,20 +22,20 @@ const defaultConfig = {
           loader: "babel-loader",
           options: {
             presets: ["@babel/preset-env"],
-            compact: false
-          }
-        }
+            compact: false,
+          },
+        },
       },
       { test: /\.html$/i, use: "html-loader" },
       {
         test: /\.(scss|css)$/,
-        use: ["style-loader", "css-loader"]
-      }
-    ]
+        use: ["style-loader", "css-loader"],
+      },
+    ],
   },
   resolve: {
-    extensions: ["*", ".js", ".jsx"]
-  }
+    extensions: ["*", ".js", ".jsx"],
+  },
 };
 
 module.exports = [
@@ -49,7 +49,20 @@ module.exports = [
       library: "JsMapWidget",
       libraryExport: "default",
       libraryTarget: "umd",
-      umdNamedDefine: true
-    }
-  }
+      umdNamedDefine: true,
+    },
+  },
+  {
+    ...defaultConfig,
+    entry: "./src/green-square/index.js",
+    output: {
+      path: distDir,
+      publicPath: "/",
+      filename: "green-square.js",
+      library: "JsMapWidget",
+      libraryExport: "default",
+      libraryTarget: "umd",
+      umdNamedDefine: true,
+    },
+  },
 ];
