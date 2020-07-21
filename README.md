@@ -5,6 +5,10 @@ A lightweight JS script to embed maps into pages.
 We need to doc how we use the esri maps
 ID
 
+How do we take a GIS map and gt thae data we need.
+
+https://services1.arcgis.com/cNVyNtjGVZybOQWZ/ArcGIS/rest/services
+
 ## Embeddable JS Map Widgets
 
 ### Install dependencies
