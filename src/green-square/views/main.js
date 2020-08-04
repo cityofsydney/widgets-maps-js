@@ -8,9 +8,9 @@ export function renderMap(params) {
 
   window.dataLayer = window.dataLayer || [];
 
-  const map = L.map(params, {
-    center: [-33.885, 151.21085],
-    zoom: 13,
+  let EsriMap = L.map(params, {
+    center: [-33.90551, 151.20472],
+    zoom: 14,
     gestureHandling: true,
     gestureHandlingOptions: {
       duration: 2000,
@@ -22,90 +22,84 @@ export function renderMap(params) {
     },
   });
 
-  let basemapLayer = L.esri.basemapLayer("Topographic").addTo(map);
-  let results = L.layerGroup().addTo(map);
+  let layer = L.esri.basemapLayer("Gray").addTo(EsriMap);
 
-  let searchControl = L.esri.Geocoding.geosearch({
-    providers: [
-      L.esri.Geocoding.arcgisOnlineProvider({
-        countries: ["AUS"], // search only US, Guan, Virgin Islands and Puerto Rico
-        categories: ["Address", "Postal", "Populated Place"], // Don't search POIs
-      }),
-    ],
-  }).addTo(map);
+  //Add mask using feature layer
+  // https://leafletjs.com/reference-1.6.0.html#path-option
+  /*   const GreenSquareMask = L.esri.featureLayer({
+    url:
+      "https://services1.arcgis.com/cNVyNtjGVZybOQWZ/arcgis/rest/services/GreenSquareMask/FeatureServer/0",
+    style: function () {
+      return { opacity: 0.3, weight: 1, stroke: false };
+    },
+  }); */
 
-  searchControl.on("results", function (data) {
-    results.clearLayers();
-    for (var i = data.results.length - 1; i >= 0; i--) {
-      results.addLayer(L.marker(data.results[i].latlng));
-    }
+  // Method 1: add via feature server
+  // https://esri.github.io/esri-leaflet/api-reference/layers/feature-layer.html
+  const Green_Square_Development_Areas_feature = L.esri.featureLayer({
+    url:
+      "https://services1.arcgis.com/cNVyNtjGVZybOQWZ/arcgis/rest/services/Green_Square_Development_Areas/FeatureServer/0",
+
+    style: function () {
+      return { color: "#2DB84B", opacity: 1, weight: 1, stroke: false };
+    },
   });
 
-  // Make a request for a user with a given ID
+  // Method 2: add via geojson server
   axios
     .get(
-      "https://services1.arcgis.com/cNVyNtjGVZybOQWZ/arcgis/rest/services/GreenSquareMask/FeatureServer/0"
+      "https://services1.arcgis.com/cNVyNtjGVZybOQWZ/arcgis/rest/services/Green_Square_Development_Areas/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token="
     )
     .then(function (response) {
       // handle success
       const data = response.data;
       //console.log(data);
-
-      L.geoJSON(data, {
+      const Green_Square_Development_Areas_geojson = L.geoJSON(data, {
         style: function (feature) {
-          switch (feature.properties.Precinct) {
-            case null:
+          switch (feature.properties.FID) {
+            case 1:
               return {
-                fillColor: "#000000",
-                color: "#4F4F48",
-                opacity: 1,
-                fillOpacity: 0.2,
-                //className: "label",
-                weight: 1.7,
+                fillColor: "#2DB84B",
+                opacity: 0.3,
+                color: "#2DB84B",
+                weight: 1,
               };
+              break;
+            case 2:
+              return {
+                fillColor: "#2DB84B",
+                color: "#2DB84B",
+                opacity: 1,
+                weight: 1,
+              };
+              break;
             default:
-              return {
-                fillColor: "#F2EBA6",
-                color: "#4F4F48",
-                opacity: 1,
-                weight: 1.7,
-                fillOpacity: 0.8,
-              };
+            // code block
           }
         },
-        onEachFeature: function (feature, layer) {
-          const label = L.marker(layer.getBounds().getCenter(), {
-            icon: L.divIcon({
-              className: "label-icon",
-              html: feature.properties.Precinct,
-            }),
-          }).addTo(map);
-
-          let Precinct = feature.properties.Precinct || "";
-
-          let popupContent = `
-            <h3 class="mw-popup-heading">${feature.properties.Label}</h3> 
-
-            <p>Parking Permit Eligibility subject to application</p>
-            <dl class="mw-popup-list">
-              <dt>Area:</dt>
-              <dd>${Precinct}</dd>
-             
-              <dt>Residential:</dt>
-              <dd>${feature.properties.ResidentialEligible}</dd>
-              <dt>Visitor:</dt>
-              <dd>${feature.properties.VisitorEligible}</dd>
-              <dt>Business:</dt>
-              <dd>${feature.properties.BusinessEligible}</dd>
-              
-            </dl>
-            `;
-
-          layer.bindPopup(popupContent);
-        },
-      }).addTo(map);
+      }).addTo(EsriMap);
     })
     .catch(function (error) {
       console.log(error);
     });
+
+  let iconGreenSquare = L.divIcon({
+    className: "icon-label",
+    iconSize: null,
+    html: "Green Square",
+  });
+
+  let iconTownCentre = L.divIcon({
+    className: "icon-label",
+    iconSize: null,
+    html: "Town centre",
+  });
+
+  const markerGreenSquare = L.marker([-33.9032, 151.19846], {
+    icon: iconGreenSquare,
+  }).addTo(EsriMap);
+
+  const markerTownCentre = L.marker([-33.90743, 151.20347], {
+    icon: iconTownCentre,
+  }).addTo(EsriMap);
 }

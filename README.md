@@ -2,12 +2,24 @@
 
 A lightweight JS script to embed maps into pages.
 
-We need to doc how we use the esri maps
-ID
+https://services1.arcgis.com/cNVyNtjGVZybOQWZ/arcgis/rest/services/Green_Square_Development_Areas/FeatureServer/0/query
 
-How do we take a GIS map and gt thae data we need.
+where 1=1
+
+Out Fields: \*
+
+Format: geojson
+
+Output Spatial Reference: 4326
+
+here is another example https://services1.arcgis.com/cNVyNtjGVZybOQWZ/arcgis/rest/services/Waste_Service_Day/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=4326&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pjson&token=
+
+we can query data from any feature layer
 
 https://services1.arcgis.com/cNVyNtjGVZybOQWZ/ArcGIS/rest/services
+
+Parse a feature collection contained in a webmap to GeoJSON.
+https://esri.github.io/esri-leaflet/examples/parse-feature-collection.html
 
 ## Embeddable JS Map Widgets
 

@@ -1,102 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="no-js" lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="A layout example that shows off a blog page with a list of posts."
-    />
+
     <title>Green Square</title>
 
+    <!-- Compressed CSS -->
     <link
       rel="stylesheet"
-      href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
-      integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ"
+      href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
+      integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I="
       crossorigin="anonymous"
     />
   </head>
 
   <body>
-    <div id="layout" class="pure-g">
-      <div class="sidebar pure-u-1 pure-u-md-1-4">
-        <div class="header">
-          <h1 class="brand-title">Green Square</h1>
-          <h2 class="brand-tagline">Creating a blog layout using Pure</h2>
-        </div>
+    <div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="cell"><h1>Green Square</h1></div>
       </div>
+      <div class="grid-x grid-padding-x">
+        <div class="cell medium-6">
+   
+          <p>https://maps.cityofsydney.nsw.gov.au/green-square-location/</p>
 
-      <div class="content pure-u-1 pure-u-md-3-4">
-        <div>
-          <!-- A wrapper for all the blog posts -->
+          <p>
+            https://maps.cityofsydney.nsw.gov.au/green-square-location/js/scripts.js</p>
+          </p>
 
-          <div class="posts">
-            <h1 class="content-subhead">Green square</h1>
-
+ 
             <code>
-              https://maps.cityofsydney.nsw.gov.au/green-square-location/ <br />
-              https://maps.cityofsydney.nsw.gov.au/green-square-location/js/scripts.js
-              <br />
-              Mask layer:
-              https://services1.arcgis.com/cNVyNtjGVZybOQWZ/arcgis/rest/services/GreenSquareMask/FeatureServer/0
-              <br />
-              townarea:
-              https://services1.arcgis.com/cNVyNtjGVZybOQWZ/arcgis/rest/services/Green_Square_Development_Areas/FeatureServer/0<br />
+              &lt;div id=&quot;esri-map&quot;&gt;&lt;/div&gt;
+              &lt;script&gt;
+                (function (w, d, s, o, f, js, fjs) {
+                  w[&quot;mapWidgetObj&quot;] = o;
+                  w[o] =
+                    w[o] ||
+                    function () {
+                      (w[o].q = w[o].q || []).push(arguments);
+                    };
+                  (js = d.createElement(s)), (fjs = d.getElementsByTagName(s)[0]);
+                  js.id = o;
+                  js.src = f;
+                  js.async = 1;
+                  fjs.parentNode.insertBefore(js, fjs);
+                })(window, document, &quot;script&quot;, &quot;mw&quot;, &quot;./green-square.js&quot;);
+                mw(&quot;init&quot;, { site: &quot;cos&quot; });
+                mw(&quot;map&quot;, &quot;esri-map&quot;);
+              &lt;/script&gt;
             </code>
+          
+        </div>
 
-            <section class="post">
-              <header class="post-header">
-                <h2 class="post-title">
-                  Everything You Need to Know About Grunt
-                </h2>
-              </header>
-            </section>
-
-            <div id="esri-map"></div>
-            <script>
-              (function (w, d, s, o, f, js, fjs) {
-                w["mapWidgetObj"] = o;
-                w[o] =
-                  w[o] ||
-                  function () {
-                    (w[o].q = w[o].q || []).push(arguments);
-                  };
-                (js = d.createElement(s)), (fjs = d.getElementsByTagName(s)[0]);
-                js.id = o;
-                js.src = f;
-                js.async = 1;
-                fjs.parentNode.insertBefore(js, fjs);
-              })(window, document, "script", "mw", "./green-square.js");
-              mw("init", { site: "cos" });
-              mw("map", "esri-map");
-            </script>
-          </div>
-
-          <div class="footer">
-            <div class="pure-menu pure-menu-horizontal">
-              <ul>
-                <li class="pure-menu-item">
-                  <a href="http://purecss.io/" class="pure-menu-link">About</a>
-                </li>
-                <li class="pure-menu-item">
-                  <a
-                    href="http://twitter.com/yuilibrary/"
-                    class="pure-menu-link"
-                    >Twitter</a
-                  >
-                </li>
-                <li class="pure-menu-item">
-                  <a
-                    href="http://github.com/pure-css/pure/"
-                    class="pure-menu-link"
-                    >GitHub</a
-                  >
-                </li>
-              </ul>
-            </div>
-          </div>
+        <div class="cell medium-6">
+          <div id="esri-map"></div>
+          <script>
+            (function (w, d, s, o, f, js, fjs) {
+              w["mapWidgetObj"] = o;
+              w[o] =
+                w[o] ||
+                function () {
+                  (w[o].q = w[o].q || []).push(arguments);
+                };
+              (js = d.createElement(s)), (fjs = d.getElementsByTagName(s)[0]);
+              js.id = o;
+              js.src = f;
+              js.async = 1;
+              fjs.parentNode.insertBefore(js, fjs);
+            })(window, document, "script", "mw", "./green-square.js");
+            mw("init", { site: "cos" });
+            mw("map", "esri-map");
+          </script>
         </div>
       </div>
     </div>
+    <!-- Compressed JavaScript -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"
+      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/what-input@5.2.10/dist/what-input.min.js"
+      integrity="sha256-ZLjSztVkz5q3lKFjN9AgL6qR7TGLE+qnTXnNNTWtMF4="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js"
+      integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o="
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

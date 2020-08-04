@@ -66,13 +66,10 @@ function extendObject(a, b) {
 fetchInject(
   cdnlinks.gesturehandling,
   fetchInject(
-    cdnlinks.leafletLabel,
+    cdnlinks.markercluster,
     fetchInject(
-      cdnlinks.markercluster,
-      fetchInject(
-        cdnlinks.esriLeafletGeocoder,
-        fetchInject(cdnlinks.esriLeaflet, fetchInject(cdnlinks.leaflet))
-      )
+      cdnlinks.esriLeafletGeocoder,
+      fetchInject(cdnlinks.esriLeaflet, fetchInject(cdnlinks.leaflet))
     )
   )
 ).then(() => {
