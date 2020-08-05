@@ -25,7 +25,8 @@ function app(window) {
     for (var i = 0; i < queue.length; i++) {
       if (queue[i][0].toLowerCase() == "init") {
         configurations = extendObject(configurations, queue[i][1]);
-        console.log("mapWidgetObj started", configurations);
+        console.log(configurations);
+        renderMap();
       } else apiHandler(queue[i][0], queue[i][1]);
     }
   }
@@ -51,7 +52,7 @@ function apiHandler(api, params) {
   switch (api) {
     // TODO: add API implementation
     case "map":
-      renderMap(params); //esri-map
+      renderMap(params); //esri-map-widget
       break;
     default:
       console.warn(`No handler defined for ${api}`);

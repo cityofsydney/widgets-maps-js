@@ -4,8 +4,6 @@ import "./style.css";
 import html from "./layout.html";
 
 export function renderMap(params) {
-  console.log("params: ", params);
-
   window.dataLayer = window.dataLayer || [];
 
   let elements = [];
@@ -14,7 +12,7 @@ export function renderMap(params) {
   // convert plain HTML string into DOM elements
   let temporary = document.createElement("div");
   temporary.innerHTML = html;
-  htmlLayout = document.getElementById(params);
+  htmlLayout = document.getElementById("esri-map-widget");
 
   //add dynamic fields
   while (temporary.children.length > 0) {
