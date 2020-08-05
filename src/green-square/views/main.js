@@ -20,7 +20,7 @@ export function renderMap(params) {
     htmlLayout.append(temporary.children[0]);
   }
 
-  let EsriMap = L.map("map", {
+  const EsriMap = L.map("map", {
     center: [-33.90551, 151.20472],
     zoom: 14,
     gestureHandling: true,
@@ -34,7 +34,7 @@ export function renderMap(params) {
     },
   });
 
-  let layer = L.esri.basemapLayer("Gray").addTo(EsriMap);
+  const layer = L.esri.basemapLayer("Gray").addTo(EsriMap);
 
   // Method 2: add via geojson server
   axios
