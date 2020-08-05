@@ -24,27 +24,6 @@ export function renderMap(params) {
 
   let layer = L.esri.basemapLayer("Gray").addTo(EsriMap);
 
-  //Add mask using feature layer
-  // https://leafletjs.com/reference-1.6.0.html#path-option
-  /*   const GreenSquareMask = L.esri.featureLayer({
-    url:
-      "https://services1.arcgis.com/cNVyNtjGVZybOQWZ/arcgis/rest/services/GreenSquareMask/FeatureServer/0",
-    style: function () {
-      return { opacity: 0.3, weight: 1, stroke: false };
-    },
-  }); */
-
-  // Method 1: add via feature server
-  // https://esri.github.io/esri-leaflet/api-reference/layers/feature-layer.html
-  const Green_Square_Development_Areas_feature = L.esri.featureLayer({
-    url:
-      "https://services1.arcgis.com/cNVyNtjGVZybOQWZ/arcgis/rest/services/Green_Square_Development_Areas/FeatureServer/0",
-
-    style: function () {
-      return { color: "#2DB84B", opacity: 1, weight: 1, stroke: false };
-    },
-  });
-
   // Method 2: add via geojson server
   axios
     .get(
@@ -74,7 +53,12 @@ export function renderMap(params) {
               };
               break;
             default:
-            // code block
+              return {
+                fillColor: "#2DB84B",
+                opacity: 0.3,
+                color: "#2DB84B",
+                weight: 1,
+              };
           }
         },
       }).addTo(EsriMap);
