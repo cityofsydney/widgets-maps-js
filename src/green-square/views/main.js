@@ -1,14 +1,28 @@
-import "./style.css";
-import "./layout.html";
-
 import axios from "axios";
+
+import "./style.css";
+import html from "./layout.html";
 
 export function renderMap(params) {
   console.log("params: ", params);
 
   window.dataLayer = window.dataLayer || [];
 
-  let EsriMap = L.map(params, {
+  let elements = [];
+  let htmlLayout;
+
+  // convert plain HTML string into DOM elements
+  let temporary = document.createElement("div");
+  temporary.innerHTML = html;
+  htmlLayout = document.getElementById(params);
+
+  //add dynamic fields
+  while (temporary.children.length > 0) {
+    elements.push(temporary.children[0]);
+    htmlLayout.append(temporary.children[0]);
+  }
+
+  let EsriMap = L.map("map", {
     center: [-33.90551, 151.20472],
     zoom: 14,
     gestureHandling: true,

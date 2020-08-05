@@ -32,30 +32,13 @@
 
  
             <code>
-              &lt;div id=&quot;esri-map&quot;&gt;&lt;/div&gt;
-              &lt;script&gt;
-                (function (w, d, s, o, f, js, fjs) {
-                  w[&quot;mapWidgetObj&quot;] = o;
-                  w[o] =
-                    w[o] ||
-                    function () {
-                      (w[o].q = w[o].q || []).push(arguments);
-                    };
-                  (js = d.createElement(s)), (fjs = d.getElementsByTagName(s)[0]);
-                  js.id = o;
-                  js.src = f;
-                  js.async = 1;
-                  fjs.parentNode.insertBefore(js, fjs);
-                })(window, document, &quot;script&quot;, &quot;mw&quot;, &quot;./green-square.js&quot;);
-                mw(&quot;init&quot;, { site: &quot;cos&quot; });
-                mw(&quot;map&quot;, &quot;esri-map&quot;);
-              &lt;/script&gt;
+              todo
             </code>
           
         </div>
 
         <div class="cell medium-6">
-          <div id="esri-map"></div>
+          <div id="esri-map-widget" class="responsive-embed widescreen"></div>
           <script>
             (function (w, d, s, o, f, js, fjs) {
               w["mapWidgetObj"] = o;
@@ -71,7 +54,7 @@
               fjs.parentNode.insertBefore(js, fjs);
             })(window, document, "script", "mw", "./green-square.js");
             mw("init", { site: "cos" });
-            mw("map", "esri-map");
+            mw("map", "esri-map-widget");
           </script>
         </div>
       </div>

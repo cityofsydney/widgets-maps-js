@@ -51,7 +51,7 @@ function apiHandler(api, params) {
   switch (api) {
     // TODO: add API implementation
     case "map":
-      renderMap(params);
+      renderMap(params); //esri-map
       break;
     default:
       console.warn(`No handler defined for ${api}`);
