@@ -65,4 +65,17 @@ module.exports = [
       umdNamedDefine: true,
     },
   },
+  {
+    ...defaultConfig,
+    entry: "./src/waste-collection/index.js",
+    output: {
+      path: distDir,
+      publicPath: "/",
+      filename: "waste-collection.js",
+      library: "JsMapWidget",
+      libraryExport: "default",
+      libraryTarget: "umd",
+      umdNamedDefine: true,
+    },
+  },
 ];

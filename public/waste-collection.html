@@ -5,8 +5,9 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Map Widgets - City of Sydney</title>
+    <title>Waste Collection map</title>
 
+    <!-- Compressed CSS -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
@@ -18,32 +19,28 @@
   <body>
     <div class="grid-container">
       <div class="grid-x grid-padding-x">
-        <div class="cell"><h1>Map Widgets</h1></div>
+        <div class="cell"><h1>Waste Collection</h1></div>
       </div>
       <div class="grid-x grid-padding-x">
-        <div class="cell medium-6">
-          <ul>
-            <li>
-              <a href="/green-square.html">Green Square</a>
-            </li>
-          </ul>
+        <div class="cell">
+          <div id="esri-map-widget"></div>
+          <script>
+            (function (w, d, s, o, f, js, fjs) {
+              w["mapWidgetObj"] = o;
+              w[o] =
+                w[o] ||
+                function () {
+                  (w[o].q = w[o].q || []).push(arguments);
+                };
+              (js = d.createElement(s)), (fjs = d.getElementsByTagName(s)[0]);
+              js.id = o;
+              js.src = f;
+              js.async = 1;
+              fjs.parentNode.insertBefore(js, fjs);
+            })(window, document, "script", "mw", "waste-collection.js");
+            mw("init", { site: "cos" });
+          </script>
         </div>
-
-        https://cityofsydney.maps.arcgis.com/apps/Embed/index.html?webmap=b6c363754ddc470da730148328023a30&extent=151.17,-33.855,151.23,-33.925
-        &home=true&zoom=true&scale=true&search=true&searchextent=false&disable_scroll=false&theme=light&basemap_toggle=true&alt_basemap=satellite
-
-        <iframe
-          width="420"
-          height="315"
-          frameborder="0"
-          scrolling="no"
-          marginheight="0"
-          marginwidth="0"
-          src="https://cityofsydney.maps.arcgis.com/apps/InformationLookup/index.html?appid=9cdad3cbfc304e6db6b4f40e1beb2187"
-          data-gtm-yt-inspected-1_25="true"
-        ></iframe>
-
-        <div class="cell medium-6"></div>
       </div>
     </div>
     <!-- Compressed JavaScript -->
