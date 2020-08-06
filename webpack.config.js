@@ -78,4 +78,17 @@ module.exports = [
       umdNamedDefine: true,
     },
   },
+  {
+    ...defaultConfig,
+    entry: "./src/sydney-lep-2012-mapsheet/index.js",
+    output: {
+      path: distDir,
+      publicPath: "/",
+      filename: "sydney-lep-2012-mapsheet.js",
+      library: "JsMapWidget",
+      libraryExport: "default",
+      libraryTarget: "umd",
+      umdNamedDefine: true,
+    },
+  },
 ];

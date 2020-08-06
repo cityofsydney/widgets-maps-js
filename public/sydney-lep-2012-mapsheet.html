@@ -5,8 +5,9 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Map Widgets - City of Sydney</title>
+    <title>sydney-lep-2012-mapsheet</title>
 
+    <!-- Compressed CSS -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
@@ -18,23 +19,28 @@
   <body>
     <div class="grid-container">
       <div class="grid-x grid-padding-x">
-        <div class="cell"><h1>Map Widgets</h1></div>
+        <div class="cell"><h1>Sydney LEP2012 Map Sheet</h1></div>
       </div>
       <div class="grid-x grid-padding-x">
-        <div class="cell medium-6">
-          <ul>
-            <li>
-              <a href="/green-square.html">Green Square</a>
-            </li>
-            <li>
-              <a href="/sydney-lep-2012-mapsheet.html"
-                >sydney-lep-2012-mapsheet</a
-              >
-            </li>
-          </ul>
+        <div class="cell">
+          <div id="esri-map-widget"></div>
+          <script>
+            (function (w, d, s, o, f, js, fjs) {
+              w["mapWidgetObj"] = o;
+              w[o] =
+                w[o] ||
+                function () {
+                  (w[o].q = w[o].q || []).push(arguments);
+                };
+              (js = d.createElement(s)), (fjs = d.getElementsByTagName(s)[0]);
+              js.id = o;
+              js.src = f;
+              js.async = 1;
+              fjs.parentNode.insertBefore(js, fjs);
+            })(window, document, "script", "mw", "sydney-lep-2012-mapsheet.js");
+            mw("init", { site: "cos" });
+          </script>
         </div>
-
-        <div class="cell medium-6"></div>
       </div>
     </div>
     <!-- Compressed JavaScript -->
