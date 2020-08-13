@@ -21,6 +21,10 @@ https://services1.arcgis.com/cNVyNtjGVZybOQWZ/ArcGIS/rest/services
 Parse a feature collection contained in a webmap to GeoJSON.
 https://esri.github.io/esri-leaflet/examples/parse-feature-collection.html
 
+example: http://www.gistechsolutions.com/leaflet/DEMO/Search/index.html
+https://stackoverflow.com/questions/9614932/best-way-to-create-large-static-dom-elements-in-javascript
+https://apps.cityofsydney.nsw.gov.au/latlong/index.html
+
 ## Embeddable JS Map Widgets
 
 ### Install dependencies

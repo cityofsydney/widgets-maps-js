@@ -91,4 +91,17 @@ module.exports = [
       umdNamedDefine: true,
     },
   },
+  {
+    ...defaultConfig,
+    entry: "./src/pine-street-creative-arts-centre/index.js",
+    output: {
+      path: distDir,
+      publicPath: "/",
+      filename: "pine-street-creative-arts-centre.js",
+      library: "JsMapWidget",
+      libraryExport: "default",
+      libraryTarget: "umd",
+      umdNamedDefine: true,
+    },
+  },
 ];

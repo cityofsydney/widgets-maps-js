@@ -21,6 +21,8 @@ export function renderMap(params) {
     htmlLayout.append(temporary.children[0]);
   }
 
+  ///Map starts here
+
   const EsriMap = L.map("map", {
     center: [-33.88686, 151.20467],
     zoom: 13,
@@ -35,7 +37,7 @@ export function renderMap(params) {
     },
   });
 
-  const layer = L.esri.basemapLayer("Topographic").addTo(EsriMap);
+  L.esri.basemapLayer("Topographic").addTo(EsriMap);
 
   const globalFeatureStyle = {
     color: colors.greenTint110Darken20,
@@ -45,10 +47,14 @@ export function renderMap(params) {
     weight: 1,
   };
 
-  const arcgisOnline = L.esri.Geocoding.arcgisOnlineProvider();
-  const featureLayer = L.esri.Geocoding.featureLayerProvider({
-    url:
-      "https://services1.arcgis.com/cNVyNtjGVZybOQWZ/ArcGIS/rest/services/SydneyLEP2012MapSheet/FeatureServer/0",
+  const SydneyLEP2012MapSheet =
+    "https://services1.arcgis.com/cNVyNtjGVZybOQWZ/ArcGIS/rest/services/SydneyLEP2012MapSheet/FeatureServer/0";
+  const SydneyLEP2012MapSheet_geojson =
+    "https://services1.arcgis.com/cNVyNtjGVZybOQWZ/ArcGIS/rest/services/SydneyLEP2012MapSheet/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=";
+
+  const arcgisOnlineProvider = L.esri.Geocoding.arcgisOnlineProvider();
+  const featureLayerProvider = L.esri.Geocoding.featureLayerProvider({
+    url: SydneyLEP2012MapSheet,
     searchFields: ["MAP_SHEET"], // Search these fields for text matches
     label: "Map sheets", // Group suggestions under this header
     formatSuggestion: function (feature) {
@@ -56,20 +62,44 @@ export function renderMap(params) {
     },
   });
 
+  //Method 1
+
+  /*   L.esri
+    .featureLayer({
+      url: SydneyLEP2012MapSheet,
+      style: function (feature) {
+        return { ...globalFeatureStyle };
+      },
+      onEachFeature: function (feature, layer) {
+        const label = L.marker(layer.getBounds().getCenter(), {
+          icon: L.divIcon({
+            className: "icon-label",
+            iconSize: null,
+            html: feature.properties.MAP_SHEET,
+          }),
+        }).addTo(EsriMap);
+
+        let popupContent = `
+        <h4>Sheet ${feature.properties.MAP_SHEET}</h4>
+        `;
+
+        layer.bindPopup(popupContent);
+      },
+    })
+    .addTo(EsriMap); */
+
   //https://esri.github.io/esri-leaflet/api-reference/controls/geosearch.html
   const geosearch = L.esri.Geocoding.geosearch({
     placeholder: "Search for places or addresses",
     zoomToResult: true,
     useMapBounds: true,
     position: "topright",
-    providers: [arcgisOnline, featureLayer],
+    providers: [arcgisOnlineProvider, featureLayerProvider],
   }).addTo(EsriMap);
 
   // Method 2: add via geojson server
   axios
-    .get(
-      "https://services1.arcgis.com/cNVyNtjGVZybOQWZ/ArcGIS/rest/services/SydneyLEP2012MapSheet/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token="
-    )
+    .get(SydneyLEP2012MapSheet_geojson)
     .then(function (response) {
       // handle success
       const data = response.data;
