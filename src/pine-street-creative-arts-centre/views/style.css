@@ -2,7 +2,7 @@
 .responsive-embed {
   position: relative;
   height: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
   padding-bottom: 75%;
   overflow: hidden;
 }
