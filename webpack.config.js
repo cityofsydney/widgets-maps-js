@@ -104,4 +104,17 @@ module.exports = [
       umdNamedDefine: true,
     },
   },
+  {
+    ...defaultConfig,
+    entry: "./src/bike-amenities/index.js",
+    output: {
+      path: distDir,
+      publicPath: "/",
+      filename: "bike-amenities.js",
+      library: "JsMapWidget",
+      libraryExport: "default",
+      libraryTarget: "umd",
+      umdNamedDefine: true,
+    },
+  },
 ];
