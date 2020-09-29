@@ -20,7 +20,7 @@ export function renderMap(params) {
     htmlLayout.append(temporary.children[0]);
   }
 
-  const EsriMap = L.map("map", {
+  const map = L.map("map", {
     center: [-33.90551, 151.20472],
     zoom: 14,
     gestureHandling: true,
@@ -34,31 +34,19 @@ export function renderMap(params) {
     },
   });
 
-  const layer = L.esri.basemapLayer("Gray").addTo(EsriMap);
+  // Add ArcGIS Online basemap
+  L.esri.basemapLayer("Gray").addTo(map);
 
-  // Method 2: add via geojson server
-  axios
-    .get(
-      "https://services1.arcgis.com/cNVyNtjGVZybOQWZ/ArcGIS/rest/services/Bicycle_parking/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token="
-    )
-    .then(function (response) {
-      // handle success
-      const data = response.data;
-      //console.log(data);
-      let myIcon = L.icon({
-        iconUrl: "./img/cycle.png",
-        iconSize: [32, 37],
-        iconAnchor: [16, 37],
-        popupAnchor: [0, -28],
-      });
+  // create a new cluster layer (new syntax at 2.0.0)
+  var earthquakes = L.esri.Cluster.featureLayer({
+    url:
+      "https://services1.arcgis.com/cNVyNtjGVZybOQWZ/ArcGIS/rest/services/Bicycle_parking/FeatureServer/0",
+  }).addTo(map);
 
-      L.geoJSON(data, {
-        pointToLayer: function (feature, latlng) {
-          return L.marker(latlng, { icon: myIcon });
-        },
-      }).addTo(EsriMap);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  earthquakes.bindPopup(function (layer) {
+    return L.Util.template(
+      "<strong>{StreetName}</strong><br> <strong>{Suburb}-{Postcode}</strong>",
+      layer.feature.properties
+    );
+  });
 }
