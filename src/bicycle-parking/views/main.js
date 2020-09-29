@@ -41,6 +41,15 @@ export function renderMap(params) {
   var earthquakes = L.esri.Cluster.featureLayer({
     url:
       "https://services1.arcgis.com/cNVyNtjGVZybOQWZ/ArcGIS/rest/services/Bicycle_parking/FeatureServer/0",
+    pointToLayer: function (geojson, latlng) {
+      var mapIcon = L.icon({
+        iconUrl: "./img/cycle.png",
+      });
+
+      return L.marker(latlng, {
+        icon: mapIcon,
+      });
+    },
   }).addTo(map);
 
   earthquakes.bindPopup(function (layer) {
