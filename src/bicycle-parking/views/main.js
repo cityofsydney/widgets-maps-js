@@ -35,7 +35,8 @@ export function renderMap(params) {
   });
 
   // Add ArcGIS Online basemap
-  L.esri.basemapLayer("Gray").addTo(map);
+  L.esri.basemapLayer("Topographic").addTo(map);
+  var searchControl = L.esri.Geocoding.geosearch().addTo(map);
 
   // create a new cluster layer (new syntax at 2.0.0)
   var earthquakes = L.esri.Cluster.featureLayer({
@@ -53,8 +54,33 @@ export function renderMap(params) {
   }).addTo(map);
 
   earthquakes.bindPopup(function (layer) {
+    console.log(layer.feature);
+
     return L.Util.template(
-      "<strong>{StreetName}</strong><br> <strong>{Suburb}-{Postcode}</strong>",
+      `<div>
+      <div><strong>Bike Parking: {StreetName}</strong></div>
+
+      <table cellpadding="0px" cellspacing="3px">
+      <tbody>
+            <tr valign="top">
+                <td><b>Type</b></td>
+                <td><span>{Type}</span> 
+                </td>
+             </tr>
+             <tr valign="top">
+                <td></td>
+                <td>You’ll find these attached to a pole on the street.</td>
+             </tr>
+             <tr valign="top">
+                <td><b>Address</b></td>
+                <td>{StreetName}, {Suburb}&nbsp;{Postcode}</td>
+             </tr>
+             <tr valign="top">
+                <td><b>Important</b></td>
+                <td>Always secure your bike with sturdy lock, such as a ‘D’ lock. Record the serial number and keep a photo of your bike to help track it down should the worst happen.</td>
+             </tr>
+       </tbody>
+ </table></div>`,
       layer.feature.properties
     );
   });
