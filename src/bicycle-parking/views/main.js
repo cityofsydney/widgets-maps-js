@@ -36,10 +36,9 @@ export function renderMap(params) {
 
   // Add ArcGIS Online basemap
   L.esri.basemapLayer("Topographic").addTo(map);
-  var searchControl = L.esri.Geocoding.geosearch().addTo(map);
 
   // create a new cluster layer (new syntax at 2.0.0)
-  var earthquakes = L.esri.Cluster.featureLayer({
+  var bikeMarker = L.esri.Cluster.featureLayer({
     url:
       "https://services1.arcgis.com/cNVyNtjGVZybOQWZ/ArcGIS/rest/services/Bicycle_parking/FeatureServer/0",
     pointToLayer: function (geojson, latlng) {
@@ -53,35 +52,31 @@ export function renderMap(params) {
     },
   }).addTo(map);
 
-  earthquakes.bindPopup(function (layer) {
-    console.log(layer.feature);
+  bikeMarker.bindPopup(function (layer) {
+    layer.feature.properties.bikeImportant =
+      "Always secure your bike with sturdy lock, such as a ‘D’ lock. Record the serial number and keep a photo of your bike to help track it down should the worst happen. ";
+    layer.feature.properties.bikeType =
+      "These are free standing racks. You can lock your bike to both sides.";
+    if (layer.feature.properties.Type == "O-Ring") {
+      layer.feature.properties.bikeImportant =
+        "Always secure your bike with sturdy lock, such as a ‘D’ lock. Record the serial number and keep a photo of your bike to help track it down should the worst happen.";
+      layer.feature.properties.bikeType =
+        "You’ll find these attached to a pole on the street.";
+    }
+    let popupContent = `<div>
+    <div><strong>Bike Parking:  {StreetName}</strong></div>
 
-    return L.Util.template(
-      `<div>
-      <div><strong>Bike Parking: {StreetName}</strong></div>
-
-      <table cellpadding="0px" cellspacing="3px">
-      <tbody>
-            <tr valign="top">
-                <td><b>Type</b></td>
-                <td><span>{Type}</span> 
-                </td>
-             </tr>
-             <tr valign="top">
-                <td></td>
-                <td>You’ll find these attached to a pole on the street.</td>
-             </tr>
-             <tr valign="top">
-                <td><b>Address</b></td>
-                <td>{StreetName}, {Suburb}&nbsp;{Postcode}</td>
-             </tr>
-             <tr valign="top">
-                <td><b>Important</b></td>
-                <td>Always secure your bike with sturdy lock, such as a ‘D’ lock. Record the serial number and keep a photo of your bike to help track it down should the worst happen.</td>
-             </tr>
-       </tbody>
- </table></div>`,
-      layer.feature.properties
-    );
+    <dl>
+    <dt>Type</dt>
+    <dd>{Type}</dd>
+    <dt></dt>
+    <dd>{bikeType}</dd>
+    <dt>Address</dt>
+    <dd>{StreetName}, {Suburb}&nbsp;{Postcode}</dd>
+    <dt>Important</dt>
+    <dd>{bikeImportant}</dd>
+  </dl>
+  </div>`;
+    return L.Util.template(popupContent, layer.feature.properties);
   });
 }
