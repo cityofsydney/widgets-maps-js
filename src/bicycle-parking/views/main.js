@@ -23,6 +23,7 @@ export function renderMap(params) {
   const map = L.map("map", {
     center: [-33.90551, 151.20472],
     zoom: 14,
+    maxZoom: 24,
     gestureHandling: true,
     gestureHandlingOptions: {
       duration: 2000,
@@ -38,14 +39,15 @@ export function renderMap(params) {
   L.esri.basemapLayer("Topographic").addTo(map);
 
   // create a new cluster layer (new syntax at 2.0.0)
+
   var bikeMarker = L.esri.Cluster.featureLayer({
+    spiderfyOnMaxZoom: false,
     url:
       "https://services1.arcgis.com/cNVyNtjGVZybOQWZ/ArcGIS/rest/services/Bicycle_parking/FeatureServer/0",
     pointToLayer: function (geojson, latlng) {
       var mapIcon = L.icon({
         iconUrl: "./img/cycle.png",
       });
-
       return L.marker(latlng, {
         icon: mapIcon,
       });
