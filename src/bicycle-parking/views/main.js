@@ -38,6 +38,13 @@ export function renderMap(params) {
   // Add ArcGIS Online basemap
   L.esri.basemapLayer("Topographic").addTo(map);
 
+  let searchControl = L.esri.Geocoding.geosearch({
+    providers: [
+      L.esri.Geocoding.arcgisOnlineProvider({
+        countries: ["AUS"], // search only US, Guan, Virgin Islands and Puerto Rico
+      }),
+    ],
+  }).addTo(map);
   // create a new cluster layer (new syntax at 2.0.0)
 
   var bikeMarker = L.esri.Cluster.featureLayer({
