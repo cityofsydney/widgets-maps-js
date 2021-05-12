@@ -104,4 +104,17 @@ module.exports = [
       umdNamedDefine: true,
     },
   },
+  {
+    ...defaultConfig,
+    entry: "./src/bicycle-parking/index.js",
+    output: {
+      path: distDir,
+      publicPath: "/",
+      filename: "bicycle-parking.js",
+      library: "JsMapWidget",
+      libraryExport: "default",
+      libraryTarget: "umd",
+      umdNamedDefine: true,
+    },
+  },
 ];
