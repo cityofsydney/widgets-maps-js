@@ -19,10 +19,11 @@
   <body>
     <div class="grid-container">
       <div class="grid-x grid-padding-x">
-        <div class="cell"><h1>bicycle-parking</h1></div>
+        <div class="cell"><h1>Bicycle Parking Map</h1></div>
       </div>
       <div class="grid-x grid-padding-x">
         <div class="cell medium-6">
+          <h4>Leaflet - Script embed - Clustering</h4>
           <div id="esri-map-widget"></div>
           <script>
             (function (w, d, s, o, f, js, fjs) {
@@ -40,6 +41,27 @@
             })(window, document, "script", "mw", "./bicycle-parking.js");
             mw("init", { site: "cos" });
           </script>
+          <small>
+            https://services1.arcgis.com/cNVyNtjGVZybOQWZ/ArcGIS/rest/....
+          </small>
+        </div>
+        <div class="cell medium-6">
+          <h4>Default iframe embed</h4>
+          <div class="responsive-embed wide">
+            <iframe
+              width="420"
+              height="315"
+              frameborder="0"
+              scrolling="no"
+              marginheight="0"
+              marginwidth="0"
+              src="https://cityofsydney.maps.arcgis.com/apps/Embed/index.html?webmap=94a7a046ae004f97a319f53f16ed17e4&amp;extent=151.17,-33.855,151.23,-33.925 &amp;home=true&amp;zoom=true&amp;legend=False&amp;show_panel=False&amp;scale=true&amp;search=true&amp;searchextent=false&amp;disable_scroll=false&amp;theme=light&amp;basemap_toggle=true&amp;alt_basemap=satellite"
+              data-gtm-yt-inspected-1_25="true"
+            ></iframe>
+          </div>
+          <small
+            >https://cityofsydney.maps.arcgis.com/apps/Embed/index.html</small
+          >
         </div>
       </div>
     </div>
