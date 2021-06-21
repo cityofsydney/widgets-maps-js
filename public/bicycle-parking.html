@@ -22,8 +22,8 @@
         <div class="cell"><h1>Bicycle Parking Map</h1></div>
       </div>
       <div class="grid-x grid-padding-x">
-        <div class="cell medium-6">
-          <h4>Leaflet - Script embed - Clustering</h4>
+        <div class="cell medium-4">
+          <h4>Leaflet - JS Script embed</h4>
           <div id="esri-map-widget"></div>
           <script>
             (function (w, d, s, o, f, js, fjs) {
@@ -45,7 +45,21 @@
             https://services1.arcgis.com/cNVyNtjGVZybOQWZ/ArcGIS/rest/....
           </small>
         </div>
-        <div class="cell medium-6">
+
+        <div class="cell medium-4">
+          <h4>Iframe - Leaflet</h4>
+
+          <div class="responsive-embed wide">
+            <iframe
+              width="420"
+              height="315"
+              src="./bicycle-parking-iframe.html"
+              frameborder="0"
+            ></iframe>
+          </div>
+        </div>
+
+        <div class="cell medium-4">
           <h4>Default iframe embed</h4>
           <div class="responsive-embed wide">
             <iframe
